@@ -1,8 +1,10 @@
-<!-- linevisualizer/templates/linevisualizer/form.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Draw Line</title>
+   
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     <h1>Draw Line Using DDA Algorithm</h1>
@@ -18,9 +20,13 @@
         <input type="number" id="y2" name="y2" required>
         <button type="submit">Draw Line</button>
     </form>
-    {% if img_str %}
-        <h2>Line Plot</h2>
-        <img src="data:image/png;base64,{{ img_str }}" alt="Line Plot">
+    {% if plot_json %}
+        <h2>Interactive Line Plot</h2>
+        <div id="plot"></div>
+        <script type="text/javascript">
+            var plotJson = {{ plot_json|safe }};
+            Plotly.newPlot('plot', plotJson.data, plotJson.layout);
+        </script>
     {% endif %}
 </body>
 </html>

@@ -1,7 +1,6 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from io import BytesIO
-import base64
+import plotly.graph_objects as go
+import plotly.io as pio
+import json
 
 def dda_algorithm(x1, y1, x2, y2):
     dx = x2 - x1
@@ -26,20 +25,13 @@ def generate_plot(x1, y1, x2, y2):
     points = dda_algorithm(x1, y1, x2, y2)
     x_values, y_values = zip(*points)
     
-    fig, ax = plt.subplots()
-    ax.plot(x_values, y_values, marker='o', linestyle='-', color='b')
-    ax.set_title(f'Line from ({x1}, {y1}) to ({x2}, {y2})')
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.grid(True)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines+markers', name='Line'))
+    fig.update_layout(title=f'Line from ({x1}, {y1}) to ({x2}, {y2})',
+                      xaxis_title='X',
+                      yaxis_title='Y',
+                      template='plotly_dark')
 
-    # Save plot to a BytesIO object
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    plt.close(fig)
-    buffer.seek(0)
+    plot_json = pio.to_json(fig)
     
-    # Encode image to base64
-    img_str = base64.b64encode(buffer.read()).decode('utf-8')
-    
-    return img_str
+    return plot_json
