@@ -12,4 +12,4 @@ def draw_line(request):
 
         plot_json = generate_plot(x1, y1, x2, y2)
         
-    return render(request, 'form.html', {'plot_json': plot_json})
+    return render(request, 'index.html', {'plot_json': plot_json})
