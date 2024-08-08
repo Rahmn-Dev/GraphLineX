@@ -1,0 +1,26 @@
+<!-- linevisualizer/templates/linevisualizer/form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Draw Line</title>
+</head>
+<body>
+    <h1>Draw Line Using DDA Algorithm</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="x1">X1:</label>
+        <input type="number" id="x1" name="x1" required>
+        <label for="y1">Y1:</label>
+        <input type="number" id="y1" name="y1" required>
+        <label for="x2">X2:</label>
+        <input type="number" id="x2" name="x2" required>
+        <label for="y2">Y2:</label>
+        <input type="number" id="y2" name="y2" required>
+        <button type="submit">Draw Line</button>
+    </form>
+    {% if img_str %}
+        <h2>Line Plot</h2>
+        <img src="data:image/png;base64,{{ img_str }}" alt="Line Plot">
+    {% endif %}
+</body>
+</html>
