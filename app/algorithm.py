@@ -27,10 +27,10 @@ def generate_plot(x1, y1, x2, y2):
     
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines+markers', name='Line'))
-    fig.update_layout(title=f'Line from ({x1}, {y1}) to ({x2}, {y2})',
+    fig.update_layout(
                       xaxis_title='X',
                       yaxis_title='Y',
-                      template='plotly_dark')
+                      template='plotly_white')
 
     plot_json = pio.to_json(fig)
     

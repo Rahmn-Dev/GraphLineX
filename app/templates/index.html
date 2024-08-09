@@ -29,8 +29,10 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
-        <img src="../static/assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+      <a class="navbar-brand m-0" href="#" target="_blank">
+        <img src="../static/assets/img/logo.png" class="" style="    max-width: 100%;
+    max-height: 100vh; border-radius:5px;
+" alt="main_logo">
        
       </a>
     </div>
@@ -43,7 +45,7 @@
           <a class="nav-link  active" href="../pages/profile.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>customer-support</title>
+                <title></title>
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
                     <g transform="translate(1716.000000, 291.000000)">
@@ -57,7 +59,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Main</span>
+            <span class="nav-link-text ms-1">Algorithm</span>
           </a>
         </li>
        
@@ -90,22 +92,41 @@
         <span class="mask bg-gradient-primary opacity-6"></span>
       </div>
       <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+        <form method="post">
+          {% csrf_token %}
         <div class="row gx-4">
-          <div class="col-auto">
-            <div class="avatar avatar-xl position-relative">
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
               
+                <input type="number" class="form-control" placeholder="x1" aria-label="x1" id="x1" name="x1" required aria-describedby="x1-addon">
+              </h5>
+              <p class="mb-0 font-weight-bold text-sm">
+
+            
+                <input type="number" class="form-control" placeholder="x2" aria-label="x2"id="x2" name="x2" required aria-describedby="x2-addon">
+           
+              </p>
             </div>
           </div>
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                
+                <input type="number" class="form-control" placeholder="y1" aria-label="y1" id="y1" name="y1" required aria-describedby="x1-addon">
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
-                
+
+                <input type="number" class="form-control" placeholder="y2" aria-label="y2"  id="y2" name="y2" required aria-describedby="y2-addon">
+            
               </p>
             </div>
           </div>
+          <div class="col-auto  my-auto">
+            <div class="avatar avatar-xl position-relative">
+              <button class="btn btn-primary" type="submit">Draw Line</button>
+            </div>
+          </div>
+        
           <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
             <div class="nav-wrapper position-relative end-0">
               <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
@@ -172,30 +193,33 @@
             </div>
           </div>
         </div>
+      </form>
       </div>
     </div>
     <div class="container-fluid py-4">
       <div class="row">
+        {% if plot_json %}
         
         <div class="col-12 mt-4">
           <div class="card mb-4">
             <div class="card-header pb-0 p-3">
-              <h6 class="mb-1">Graph</h6>
+              <h6 class="mb-1"></h6>
               <p class="text-sm"></p>
             </div>
             <div class="card-body p-3">
-                {% if plot_json %}
+               
                 <h2></h2>
                 <div id="plot" style="border-radius:20px;"></div>
                 <script type="text/javascript">
                     var plotJson = {{ plot_json|safe }};
                     Plotly.newPlot('plot', plotJson.data, plotJson.layout);
                 </script>
-              {% endif %}
+              
             </div>
           </div>
         </div>
       </div>
+      {% endif %}
       <footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">

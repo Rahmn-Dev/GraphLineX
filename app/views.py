@@ -1,6 +1,6 @@
 
 from django.shortcuts import render
-from .algorithm_dda import generate_plot
+from .algorithm import generate_plot
 
 def draw_line(request):
     plot_json = None
