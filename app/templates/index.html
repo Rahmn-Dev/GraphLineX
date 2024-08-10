@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../static/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="../static/assets/img/favicon1.png">
   <title>
     GrapLineX
   </title>
@@ -29,7 +29,7 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="#" target="_blank">
+      <a class="navbar-brand m-0" href="" target="_blank">
         <img src="../static/assets/img/logo.png" class="" style="    max-width: 100%;
     max-height: 100vh; border-radius:5px;
         box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
@@ -72,15 +72,18 @@
         <li class="nav-item" style="
         margin-bottom: 2px;
     ">
-          <a class="nav-link  active" href="">
-          
-            <span class="nav-link-text ms-1">{{ submission.algorithm }}</span>
-            {% if submission.algorithm == 'midpoint'%}
-            <span class="nav-link-text ms-1">({{ submission.x_center|floatformat:0 }}, {{ submission.y_center|floatformat:0 }}) Radius: {{ submission.radius }}</span>
-            {% else %}
-            <span class="nav-link-text ms-1">A ({{ submission.x1|floatformat:0 }}, {{ submission.y1|floatformat:0 }}), B ({{ submission.x2|floatformat:0 }}, {{ submission.y2|floatformat:0 }})</span>
+    
+    {% if submission.algorithm == 'midpoint'%}
+    <a class="nav-link  active" href="?show_graph=midpoint({{submission.x_center|floatformat:0}},{{submission.y_center|floatformat:0}})({{ submission.radius|floatformat:0 }})">
+      <span class="nav-link-text ms-1">{{ submission.algorithm }}</span>
+      <span class="nav-link-text ms-1">({{ submission.x_center|floatformat:0 }}, {{ submission.y_center|floatformat:0 }}) Radius: {{ submission.radius }}</span>
+    </a>
+    {% else %}
+    <a class="nav-link  active" href="/?show_graph=bresenham({{ submission.x1|floatformat:0 }},{{ submission.y1|floatformat:0 }})({{ submission.x2|floatformat:0 }},{{ submission.y2|floatformat:0 }})">
+      <span class="nav-link-text ms-1">{{ submission.algorithm }}</span>
+      <span class="nav-link-text ms-1">A ({{ submission.x1|floatformat:0 }}, {{ submission.y1|floatformat:0 }}), B ({{ submission.x2|floatformat:0 }}, {{ submission.y2|floatformat:0 }})</span>
+    </a>
             {% endif %}
-          </a>
         </li>
         {% endfor %}
         {% else %}
