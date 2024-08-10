@@ -13,4 +13,5 @@ Features
 	•	History: Stores and displays a history of generated plots.
 	•	Interactive Plot Viewing: Click on history entries to view detailed plots.
 
-[GraphLineX demo video](https://github.com/user-attachments/assets/8a1b556c-332a-409a-b7ef-8cf4198207ce)
+[GraphLineX demo video](https://github.com/user-attachments/assets/00af3c67-235a-4725-9b77-66f244dd4a01)
+
