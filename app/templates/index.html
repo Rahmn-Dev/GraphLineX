@@ -22,7 +22,7 @@
   <link id="pagestyle" href="../static/assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script defer data-site="rahmn.asia" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -32,6 +32,8 @@
       <a class="navbar-brand m-0" href="#" target="_blank">
         <img src="../static/assets/img/logo.png" class="" style="    max-width: 100%;
     max-height: 100vh; border-radius:5px;
+        box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
 " alt="main_logo">
        
       </a>
@@ -92,38 +94,63 @@
         <span class="mask bg-gradient-primary opacity-6"></span>
       </div>
       <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
-        <form method="post">
+        <form method="post" id="algorithm-form" onsubmit="changeForm();">
           {% csrf_token %}
         <div class="row gx-4">
-          <div class="col-auto my-auto">
+        
+          <div class="col-auto my-auto line-fields">
             <div class="h-100">
               <h5 class="mb-1">
               
-                <input type="number" class="form-control" placeholder="x1" aria-label="x1" id="x1" name="x1" required aria-describedby="x1-addon">
+                <input type="number" class="form-control" placeholder="x1" aria-label="x1" id="x1" name="x1"  aria-describedby="x1-addon">
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
 
             
-                <input type="number" class="form-control" placeholder="x2" aria-label="x2"id="x2" name="x2" required aria-describedby="x2-addon">
+                <input type="number" class="form-control" placeholder="x2" aria-label="x2"id="x2" name="x2"  aria-describedby="x2-addon">
            
               </p>
             </div>
           </div>
-          <div class="col-auto my-auto">
+          <div class="col-auto my-auto line-fields">
             <div class="h-100">
               <h5 class="mb-1">
-                <input type="number" class="form-control" placeholder="y1" aria-label="y1" id="y1" name="y1" required aria-describedby="x1-addon">
+                <input type="number" class="form-control" placeholder="y1" aria-label="y1" id="y1" name="y1"  aria-describedby="x1-addon">
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
 
-                <input type="number" class="form-control" placeholder="y2" aria-label="y2"  id="y2" name="y2" required aria-describedby="y2-addon">
+                <input type="number" class="form-control" placeholder="y2" aria-label="y2"  id="y2" name="y2"  aria-describedby="y2-addon">
             
               </p>
             </div>
           </div>
+         
+         
+            <div class="col-auto my-auto circle-fields" style="display: none;">
+              <div class="h-100">
+                <h5 class="mb-1">
+                
+                  <input type="number" class="form-control" placeholder="x_center" aria-label="x_center" id="x_center" name="x_center"  aria-describedby="x_center-addon">
+                </h5>
+                <p class="mb-0 font-weight-bold text-sm">
+
+              
+                  <input type="number" class="form-control" placeholder="y_center" aria-label="y_center" id="y_center" name="y_center"  aria-describedby="y_center-addon">
+            
+                </p>
+              </div>
+            </div>
+            <div class="col-auto my-auto circle-fields" style="display: none;">
+              <div class="h-100">
+                <h5 class="mb-1">
+                  <input type="number" class="form-control" placeholder="radius" aria-label="radius" id="radius" name="radius"  aria-describedby="radius-addon">
+                </h5>
+              </div>
+            </div>
+         
           <div class="col-auto  my-auto">
             <div class="avatar avatar-xl position-relative">
-              <button class="btn btn-primary" type="submit">Draw Line</button>
+              <button class="btn bg-gradient-primary" type="submit">Draw Line</button>
             </div>
           </div>
         
@@ -314,16 +341,41 @@
   </script>
   <!-- Github buttons -->
   <script>
-    document.getElementById('dda-button').addEventListener('click', function() {
-      document.getElementById('algorithm').value = 'dda';
-    });
-  
-    document.getElementById('bresenham-button').addEventListener('click', function() {
-      document.getElementById('algorithm').value = 'bresenham';
-    });
-  
-    document.getElementById('midpoint-button').addEventListener('click', function() {
-      document.getElementById('algorithm').value = 'midpoint';
+    document.addEventListener('DOMContentLoaded', () => {
+      const ddaButton = document.getElementById('dda-button');
+      const bresenhamButton = document.getElementById('bresenham-button');
+      const midpointButton = document.getElementById('midpoint-button');
+      const circleFields = document.querySelectorAll('.circle-fields');
+      const lineFields = document.querySelectorAll('.line-fields');
+      const algorithmInput = document.getElementById('algorithm');
+    
+      function showHideFields(algorithm) {
+        if (algorithm === 'midpoint') {
+          circleFields.forEach(field => field.style.display = 'block');
+          lineFields.forEach(field => field.style.display = 'none');
+        } else {
+          lineFields.forEach(field => field.style.display = 'block');
+          circleFields.forEach(field => field.style.display = 'none');
+        }
+      }
+    
+      ddaButton.addEventListener('click', () => {
+        algorithmInput.value = 'dda';
+        showHideFields('dda');
+      });
+    
+      bresenhamButton.addEventListener('click', () => {
+        algorithmInput.value = 'bresenham';
+        showHideFields('bresenham');
+      });
+    
+      midpointButton.addEventListener('click', () => {
+        algorithmInput.value = 'midpoint';
+        showHideFields('midpoint');
+      });
+    
+      // Initialize based on the default selected algorithm
+      showHideFields(algorithmInput.value);
     });
   </script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
